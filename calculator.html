@@ -1,0 +1,69 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+  <meta charset="UTF-8" />
+  <title>Простой калькулятор</title>
+  <style>
+    body { font-family: Arial, sans-serif; margin: 40px; }
+    .calc { width: 260px; padding: 20px; border: 1px solid #ccc; border-radius: 8px; }
+    .display { width: 100%; height: 40px; margin-bottom: 10px; font-size: 20px; padding: 5px; box-sizing: border-box; }
+    .buttons { display: grid; grid-template-columns: repeat(4, 1fr); grid-gap: 8px; }
+    button { height: 45px; font-size: 18px; }
+    button.operator { background: #f0f0f0; }
+    button.equal { grid-column: span 2; background: #4caf50; color: #fff; }
+    button.clear { background: #f44336; color: #fff; }
+  </style>
+</head>
+<body>
+  <div class="calc">
+    <input type="text" class="display" id="display" readonly />
+    <div class="buttons">
+      <button class="clear" onclick="clearDisplay()">C</button>
+      <button onclick="appendToDisplay('(')">(</button>
+      <button onclick="appendToDisplay(')')">)</button>
+      <button class="operator" onclick="appendToDisplay('/')">/</button>
+
+      <button onclick="appendToDisplay('7')">7</button>
+      <button onclick="appendToDisplay('8')">8</button>
+      <button onclick="appendToDisplay('9')">9</button>
+      <button class="operator" onclick="appendToDisplay('*')">*</button>
+
+      <button onclick="appendToDisplay('4')">4</button>
+      <button onclick="appendToDisplay('5')">5</button>
+      <button onclick="appendToDisplay('6')">6</button>
+      <button class="operator" onclick="appendToDisplay('-')">-</button>
+
+      <button onclick="appendToDisplay('1')">1</button>
+      <button onclick="appendToDisplay('2')">2</button>
+      <button onclick="appendToDisplay('3')">3</button>
+      <button class="operator" onclick="appendToDisplay('+')">+</button>
+
+      <button onclick="appendToDisplay('0')">0</button>
+      <button onclick="appendToDisplay('.')">.</button>
+      <button class="equal" onclick="calculate()">=</button>
+    </div>
+  </div>
+
+  <script>
+    const display = document.getElementById('display');
+
+    function appendToDisplay(value) {
+      display.value += value;
+    }
+
+    function clearDisplay() {
+      display.value = '';
+    }
+
+    function calculate() {
+      try {
+        const result = eval(display.value);
+        display.value = result ?? '';
+      } catch {
+        display.value = 'Ошибка';
+        setTimeout(() => (display.value = ''), 1200);
+      }
+    }
+  </script>
+</body>
+</html>
